@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ConstructionLine.CodingChallenge
 {
-    public class Size
+    public class Size : IEquatable<Size>
     {
         public Guid Id { get; }
 
@@ -28,5 +28,36 @@ namespace ConstructionLine.CodingChallenge
                 Medium,
                 Large
             };
+
+        #region Equality
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Size);
+        }
+
+        public bool Equals(Size other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Id.Equals(other.Id);
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+
+        public static bool operator ==(Size left, Size right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(Size left, Size right)
+        {
+            return !Equals(left, right);
+        }
+
+        #endregion
     }
 }

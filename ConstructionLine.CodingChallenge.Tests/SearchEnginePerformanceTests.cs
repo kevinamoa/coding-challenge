@@ -25,7 +25,7 @@ namespace ConstructionLine.CodingChallenge.Tests
 
 
         [Test]
-        public void PerformanceTest()
+        public void SearchEngine_PerformanceTest_WithSingleColorSearchOption()
         {
             var sw = new Stopwatch();
             sw.Start();
@@ -43,6 +43,28 @@ namespace ConstructionLine.CodingChallenge.Tests
             AssertResults(results.Shirts, options);
             AssertSizeCounts(_shirts, options, results.SizeCounts);
             AssertColorCounts(_shirts, options, results.ColorCounts);
+        }
+
+        [Test]
+        public void SearchEngine_PerformanceTest_WithMultipleColorAndMultipleSizeOptions()
+        {
+            var sw = new Stopwatch();
+            sw.Start();
+
+            var options = new SearchOptions
+            {
+                Colors = new List<Color> { Color.Red, Color.Blue },
+                Sizes = new List<Size> { Size.Small, Size.Medium },
+            };
+
+            var results = _searchEngine.Search(options);
+
+            sw.Stop();
+            Console.WriteLine($"Test fixture finished in {sw.ElapsedMilliseconds} milliseconds");
+
+            AssertResults(results.Shirts, options);
+            AssertSizeCounts(results.Shirts, options, results.SizeCounts);
+            AssertColorCounts(results.Shirts, options, results.ColorCounts);
         }
     }
 }

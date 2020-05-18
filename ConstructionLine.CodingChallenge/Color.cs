@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ConstructionLine.CodingChallenge
 {
-    public class Color
+    public class Color : IEquatable<Color>
     {
         public Guid Id { get; }
 
@@ -32,5 +32,37 @@ namespace ConstructionLine.CodingChallenge
                 White,
                 Black
             };
+
+        #region Equality
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Color);
+        }
+
+        public bool Equals(Color other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Id.Equals(other.Id);
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+
+        public static bool operator ==(Color left, Color right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(Color left, Color right)
+        {
+            return !Equals(left, right);
+        }
+
+
+        #endregion
     }
 }
