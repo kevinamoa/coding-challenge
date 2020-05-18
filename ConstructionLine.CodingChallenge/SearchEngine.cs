@@ -55,7 +55,7 @@ namespace ConstructionLine.CodingChallenge
                 _ => _shirts
             };
             
-            return BuildSearchResults(matchedShirts.ToList());
+            return BuildSearchResults(matchedShirts);
         }
 
         public SearchResults BuildSearchResults(List<Shirt> matchedShirts)
